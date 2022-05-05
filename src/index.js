@@ -82,6 +82,7 @@ bot.on('callback_query', async ctx=>{
             ctx.scene.enter('deleteKey')
             break
         case 'back':
+            ctx.deleteMessage()
             showMenu(ctx)
         default:
             break
