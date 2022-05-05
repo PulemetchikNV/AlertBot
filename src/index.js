@@ -191,7 +191,7 @@ function showList(ctx, userId){
                     kb.push([Markup.button.callback(a[`key`], `${a[`key`]}`)])
                 }
                 kb.push([Markup.button.callback('Назад', `back_`)])
-                ctx.reply(`Список ключей:`, Markup.inlinekeyboard(kb))
+                ctx.reply(`Список ключей:`, Markup.inlineKeyboard(kb))
             }
         }
     })
