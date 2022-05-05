@@ -1,0 +1,29 @@
+{
+  "name": "alertbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./src/index.js",
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/pulemet4iknv/alertbot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://bitbucket.org/pulemet4iknv/alertbot/issues"
+  },
+  "homepage": "https://bitbucket.org/pulemet4iknv/alertbot#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
+    "node-fetch": "^3.2.4",
+    "nodemon": "^2.0.16",
+    "telegraf": "^4.8.1"
+  },
+  "type": "module"
+}
