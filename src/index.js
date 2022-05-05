@@ -1,7 +1,7 @@
 import {Scenes, session, Telegraf, Markup, Telegram } from "telegraf"
 import express from 'express'
-import config from "./config.js";
-import conn from "./conn.js";
+import config from "../config.js";
+import conn from "../conn.js";
 import kb from "./kb.js";
 import btns from "./kbBtns.js";
 const app = express()
@@ -73,6 +73,9 @@ bot.on('callback_query', async ctx=>{
             ctx.deleteMessage();
             ctx.scene.enter('requestKey')
             break
+        case 'showKeys':
+            ctx.deleteMessage();
+            showList();
         case 'delKey':
             ctx.deleteMessage();
             ctx.scene.enter('deleteKey')
@@ -122,6 +125,7 @@ function requestKeyScene(){
     })
     return requestKey
 }
+
 function deleteKeyScene(){
     const deleteKey = new Scenes.BaseScene('deleteKey')
     deleteKey.enter(ctx=>{
@@ -167,9 +171,27 @@ function deleteKeyScene(){
 }
 
 
-//=======================================
+//===========Functions==============
 function showMenu(ctx){
    setTimeout(() => {
         ctx.reply(`Возможные действия:`, Markup.inlineKeyboard(kb.key))
    }, 150);
+}
+function showList(){
+    conn.query('SELECT * FROM `users` WHERE `userId` = "' + ctx.session.userId + '"', (err,res)=>{
+        if(err){
+            console.log(err);
+        }else{
+            if(res.length == 0){
+                ctx.reply(`Похоже, у вас нет ни одного ключа`, Markup.inlineKeyboard([Markup.button.callback('Назад', `back_`)]))
+            }else{
+                let kb = []
+                for(let a of res){
+                    kb.push([Markup.button.callback(a[`key`], `${a[`key`]}`)])
+                }
+                kb.push([Markup.button.callback('Назад', `back_`)])
+            }
+        }
+    })
+        
 }
