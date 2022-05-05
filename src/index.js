@@ -95,7 +95,7 @@ bot.launch()
 //=================SCENES=========================
 function requestKeyScene(){
     const requestKey = new Scenes.BaseScene(`requestKey`)
-    requestKey.enter(async ctx =>await ctx.reply('Введите ключ:'))
+    requestKey.enter(async ctx =>await ctx.reply('Введите ключ:', Markup.inlineKeyboard([Markup.button.callback('Назад', `back_`)])))
     requestKey.on('text', async ctx => {
         const key = ctx.message.text
         const userId = ctx.message.from.id
@@ -122,6 +122,11 @@ function requestKeyScene(){
                 }
             })
         }
+        showMenu(ctx)
+        ctx.scene.leave()
+    })
+    requestKey.on(`callback_query`, async ctx =>{
+        ctx.deleteMessage();
         showMenu(ctx)
         ctx.scene.leave()
     })
