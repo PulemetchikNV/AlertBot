@@ -75,7 +75,7 @@ bot.on('callback_query', async ctx=>{
             break
         case 'showKeys':
             ctx.deleteMessage();
-            showList(ctx.session.userId);
+            showList(ctx, ctx.session.userId);
             break
         case 'delKey':
             ctx.deleteMessage();
@@ -178,7 +178,7 @@ function showMenu(ctx){
         ctx.reply(`Возможные действия:`, Markup.inlineKeyboard(kb.key))
    }, 150);
 }
-function showList(userId){
+function showList(ctx, userId){
     conn.query('SELECT * FROM `users` WHERE `userId` = "' + userId + '"', (err,res)=>{
         if(err){
             console.log(err);
