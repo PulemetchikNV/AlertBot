@@ -76,6 +76,7 @@ bot.on('callback_query', async ctx=>{
         case 'showKeys':
             ctx.deleteMessage();
             showList(ctx.session.userId);
+            break
         case 'delKey':
             ctx.deleteMessage();
             ctx.scene.enter('deleteKey')
