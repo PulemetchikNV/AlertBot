@@ -44,6 +44,7 @@ bot.use(stage.middleware())
 // })
 bot.on('message', async ctx=>{
     ctx.session.userId = ctx.message.from.id
+    const userId = ctx.session.userId
     switch (ctx.message.text) {
         // case btns.key.addKey:
         //     ctx.scene.enter('requestKey')
@@ -67,6 +68,7 @@ bot.on('message', async ctx=>{
 })
 bot.on('callback_query', async ctx=>{
     ctx.session.userId = ctx.callbackQuery.from.id
+    const userId = ctx.session.userId
     var data = ctx.callbackQuery.data.split('_')
     switch(data[0]){
         case 'addKey':
@@ -75,7 +77,7 @@ bot.on('callback_query', async ctx=>{
             break
         case 'showKeys':
             ctx.deleteMessage();
-            showList(ctx, ctx.session.userId);
+            showList(ctx, userId);
             break
         case 'delKey':
             ctx.deleteMessage();
@@ -84,6 +86,7 @@ bot.on('callback_query', async ctx=>{
         case 'back':
             ctx.deleteMessage()
             showMenu(ctx)
+            break
         default:
             break
             
@@ -97,11 +100,14 @@ function requestKeyScene(){
     const requestKey = new Scenes.BaseScene(`requestKey`)
     requestKey.enter(async ctx =>await ctx.reply('Введите ключ:', Markup.inlineKeyboard([Markup.button.callback('Назад', `back_`)])))
     requestKey.on('text', async ctx => {
+
+        ctx.deleteMessage();
         const key = ctx.message.text
         const userId = ctx.message.from.id
         if(key.length !== 36){
             ctx.reply(`Неверный формат ключа`)
         }else{
+
             conn.query('SELECT * FROM `users` WHERE `key` = "' + key + '" and userId = "' + userId + '"', (err,res)=>{
                 if(err){
                     console.log(err);
@@ -154,6 +160,7 @@ function deleteKeyScene(){
         })
         
     })
+    
     deleteKey.on(`callback_query`, ctx=>{
         ctx.session.userId = ctx.callbackQuery.from.id
         ctx.answerCbQuery();
