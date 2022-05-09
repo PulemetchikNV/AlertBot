@@ -5,9 +5,10 @@
 NodeJS is installed
 
 =====Setting up DB=====
-1. Change directory to AlertBot/database
-2. Change db data in /config/init.json
-3. run "db-migrate up init --config ./config/init.json"
+1. Create database AlertBot
+2. Change directory to AlertBot/database
+3. Change db data in /config/init.json
+4. run "db-migrate up init --config ./config/init.json"
 
 Migration is made
 
