@@ -67,6 +67,7 @@ bot.on('message', async ctx=>{
     }
 })
 bot.on('callback_query', async ctx=>{
+    ctx.answerCbQuery();
     ctx.session.userId = ctx.callbackQuery.from.id
     const userId = ctx.session.userId
     var data = ctx.callbackQuery.data.split('_')
@@ -107,7 +108,6 @@ function requestKeyScene(){
         if(key.length !== 36){
             ctx.reply(`Неверный формат ключа`)
         }else{
-
             conn.query('SELECT * FROM `users` WHERE `key` = "' + key + '" and userId = "' + userId + '"', (err,res)=>{
                 if(err){
                     console.log(err);
@@ -132,6 +132,7 @@ function requestKeyScene(){
         ctx.scene.leave()
     })
     requestKey.on(`callback_query`, async ctx =>{
+        ctx.answerCbQuery();
         ctx.deleteMessage();
         showMenu(ctx)
         ctx.scene.leave()
