@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "host": "localhost",
+        "user": "root",
+        "database": "AlertBot",
+        "password": "password",
+        "driver" : "mysql",
+        "multipleStatements": true
+    },"sql-file": true
+}

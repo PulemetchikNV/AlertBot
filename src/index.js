@@ -1,9 +1,10 @@
-import {Scenes, session, Telegraf, Markup, Telegram } from "telegraf"
-import express from 'express'
-import config from "../config.js";
-import conn from "../conn.js";
-import kb from "./kb.js";
-import btns from "./kbBtns.js";
+var {Scenes, session, Telegraf, Markup, Telegram } = require('telegraf')
+var express = require('express')
+var config = require("../config.js")
+var conn = require("../conn.js")
+var kb = require("./kb.js")
+var btns = require('./kbBtns.js')
+// import btns from "./kbBtns.js";
 const app = express()
 const bot = new Telegraf(config.TOKEN)
 

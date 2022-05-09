@@ -1,6 +1,6 @@
-import btns from "./kbBtns.js";
-import {Scenes, session, Telegraf, Markup, Telegram } from "telegraf"
+var btns = require('./kbBtns.js')
+var {Scenes, session, Telegraf, Markup, Telegram } = require('telegraf')
 const kb = {
     key: [[Markup.button.callback(btns.key.addKey, `addKey_`), Markup.button.callback(btns.key.showKeys, `showKeys_`), Markup.button.callback(btns.key.delKey, `delKey_`)]]
 }
-export default kb
+module.exports = kb

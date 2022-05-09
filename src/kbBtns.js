@@ -6,4 +6,4 @@ const btns = {
     }
 }
 
-export default btns
+module.exports = btns
