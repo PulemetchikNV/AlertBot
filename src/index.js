@@ -144,6 +144,7 @@ function deleteKeyScene(){
     deleteKey.enter(ctx=>{
         conn.query('SELECT * FROM `users` WHERE `userId` = "' + ctx.session.userId + '"', (err,res)=>{
             if(err){
+                ctx.reply(`Произошла ошибка при запросе к БД:\n${err}`)
                 console.log(err);
             }else{
                 if(res.length == 0){
@@ -168,6 +169,7 @@ function deleteKeyScene(){
         if(ctx.callbackQuery.data != 'back_'){
             conn.query('DELETE FROM `users` WHERE `userId` = "' + ctx.session.userId + '" and `key` = "' + ctx.callbackQuery.data + '"', (err,res)=>{
                 if(err){
+                    ctx.reply(`Произошла ошибка при запросе к БД:\n${err}`)
                     console.log(err);
                 }else{
                     setTimeout(() => {
@@ -194,6 +196,7 @@ function showMenu(ctx){
 function showList(ctx, userId){
     conn.query('SELECT * FROM `users` WHERE `userId` = "' + userId + '"', (err,res)=>{
         if(err){
+            ctx.reply(`Произошла ошибка при запросе к БД:\n${err}`)
             console.log(err);
         }else{
             if(res.length == 0){
