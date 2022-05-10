@@ -1,6 +1,6 @@
 var config = {
-    TOKEN: '5218826054:AAFKoZGGrgFxWz-QORGeTJsXcU2qSp_bt3k',
+    TOKEN: '5116454250:AAGopKG0Kb11fRuZ7KVtZm8a4P63Meao7R0',
     PORT: '1090',
 }
 
-export default config
+module.exports = config
