@@ -1,7 +1,7 @@
 var {Scenes, session, Telegraf, Markup, Telegram } = require('telegraf')
 var express = require('express')
 var config = require("../config.js")
-var conn = require("../conn.js")
+
 var kb = require("./kb.js")
 var btns = require('./kbBtns.js')
 // import btns from "./kbBtns.js";
@@ -12,6 +12,7 @@ app.listen(config.PORT, async()=>{
     console.log(`Bot is running on port ${config.PORT}`);
 });
 app.get('/sendTo', async (req, res) =>{
+    var conn = require("../conn.js")
     res.sendStatus(200)
     var message = req.query.message
     var key = req.query.key + ''
@@ -102,7 +103,7 @@ function requestKeyScene(){
     const requestKey = new Scenes.BaseScene(`requestKey`)
     requestKey.enter(async ctx =>await ctx.reply('Введите ключ:', Markup.inlineKeyboard([Markup.button.callback('Назад', `back_`)])))
     requestKey.on('text', async ctx => {
-
+        var conn = require("../conn.js")
         ctx.deleteMessage();
         const key = ctx.message.text
         const userId = ctx.message.from.id
@@ -144,6 +145,7 @@ function requestKeyScene(){
 function deleteKeyScene(){
     const deleteKey = new Scenes.BaseScene('deleteKey')
     deleteKey.enter(ctx=>{
+        var conn = require("../conn.js")
         conn.query('SELECT * FROM `users` WHERE `userId` = "' + ctx.session.userId + '"', (err,res)=>{
             if(err){
                 ctx.reply(`Произошла ошибка при запросе к БД:\n${err}`)
@@ -169,6 +171,7 @@ function deleteKeyScene(){
         ctx.answerCbQuery();
         ctx.deleteMessage();
         if(ctx.callbackQuery.data != 'back_'){
+            var conn = require("../conn.js")
             conn.query('DELETE FROM `users` WHERE `userId` = "' + ctx.session.userId + '" and `key` = "' + ctx.callbackQuery.data + '"', (err,res)=>{
                 if(err){
                     ctx.reply(`Произошла ошибка при запросе к БД:\n${err}`)
@@ -196,6 +199,7 @@ function showMenu(ctx){
    }, 150);
 }
 function showList(ctx, userId){
+    var conn = require("../conn.js")
     conn.query('SELECT * FROM `users` WHERE `userId` = "' + userId + '"', (err,res)=>{
         if(err){
             ctx.reply(`Произошла ошибка при запросе к БД:\n${err}`)
