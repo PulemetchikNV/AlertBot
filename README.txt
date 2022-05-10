@@ -3,9 +3,10 @@
 2. run "npm i"
 
 =====Setting up DB=====
-1. Change directory to AlertBot\database
+1. Create database AlertBot
 2. Change db data in /config/init.json
-3. run "db-migrate up init --config ./config/init.json"
+3. Change directory to AlertBot\database
+4. run "db-migrate up init --config ./config/init.json"
 
 Migration is made
 
